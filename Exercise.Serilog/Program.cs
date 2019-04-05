@@ -2,6 +2,7 @@
 using Serilog.Formatting.Json;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,12 +14,15 @@ namespace Exercise.Serilog
         static void Main()
         {
             CreateLogger();
+            for (int i = 0; i < 500; i++)
+            {
+                Console.WriteLine(i);
+                SimpleLog();
 
-            SimpleLog();
+                LogLevels();
 
-            LogLevels();
-
-            StructuredLogging();
+                StructuredLogging();
+            }
 
             Console.ReadKey();
         }
@@ -69,10 +73,12 @@ namespace Exercise.Serilog
         private static void CreateLogger()
         {
             Log.Logger = new LoggerConfiguration()
-                            .MinimumLevel.Debug()
+                            .MinimumLevel.Verbose()
                             .WriteTo.Console()
-                            .WriteTo.File("Log\\LogFile.log")
-                            .WriteTo.RollingFile("Log\\RollongLogFile.log")
+                            .WriteTo.File(new JsonFormatter(), "Log\\Machine.log")
+                            .WriteTo.File("Log\\Human.log")
+                            .WriteTo.RollingFile(new JsonFormatter(),
+                                "Log\\RollingFile-{Date}.log")
                             .CreateLogger();
         }
     }
