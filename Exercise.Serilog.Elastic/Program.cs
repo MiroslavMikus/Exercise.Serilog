@@ -1,4 +1,5 @@
 ﻿using Serilog;
+using Serilog.Context;
 using Serilog.Formatting.Json;
 using Serilog.Sinks.Elasticsearch;
 using System;
@@ -17,18 +18,41 @@ namespace Exercise.Serilog.Elastic
 
             LogLevels();
 
-            while (true)
-            { 
-                StructuredLogging();
-                Thread.CurrentThread.Join(5);
+            StructuredLogging();
+
+            Enrichers();
+
+            Console.ReadLine();
+        }
+
+        private static void Enrichers()
+        {
+            using (LogContext.PushProperty("process", "storno"))
+            {
+                Businesslogic();
             }
+
+            using (LogContext.PushProperty("process", "transportOrder"))
+            {
+                Businesslogic();
+            }
+        }
+
+        private static void Businesslogic()
+        {
+            Log.Logger.Information("I'm just the poor worker :`(");
         }
 
         private static void StructuredLogging()
         {
-            var user = new { Name = "Miro", Age = RND.Next(1, 100) };
+            for (int i = 0; i < 50; i++)
+            {
+                Thread.CurrentThread.Join(5);
 
-            Log.Information("Log user {@User}", user);
+                var user = new { Name = "Miro", Age = RND.Next(1, 100) };
+
+                Log.Information("Log user {@User}", user);
+            }
         }
 
         private static void LogLevels()
@@ -44,6 +68,8 @@ namespace Exercise.Serilog.Elastic
         private static void CreateLogger()
         {
             Log.Logger = new LoggerConfiguration()
+                            .Enrich.WithProperty("system", "Miro-Laptop")
+                            .Enrich.FromLogContext()
                             .MinimumLevel.Debug()
                             .WriteTo.Console()
                             .WriteTo.Elasticsearch(new ElasticsearchSinkOptions(new Uri("http://localhost:9200"))
