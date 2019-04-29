@@ -1,11 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27703.2026
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28822.285
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Exercise.Serilog", "Exercise.Serilog\Exercise.Serilog.csproj", "{64004BC3-84FA-4D73-AE16-E428C8A0BC52}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Exercise.Serilog.Elastic", "Exercise.Serilog.Elastic\Exercise.Serilog.Elastic.csproj", "{BE18DB2D-6758-4166-BA54-948EA43F4EEA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Exercise.Serilog.Caller", "Exercise.Serilog.Caller\Exercise.Serilog.Caller.csproj", "{25E70912-4565-4AFD-A420-DB55AFEE2EFB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{BE18DB2D-6758-4166-BA54-948EA43F4EEA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BE18DB2D-6758-4166-BA54-948EA43F4EEA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BE18DB2D-6758-4166-BA54-948EA43F4EEA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{25E70912-4565-4AFD-A420-DB55AFEE2EFB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{25E70912-4565-4AFD-A420-DB55AFEE2EFB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{25E70912-4565-4AFD-A420-DB55AFEE2EFB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{25E70912-4565-4AFD-A420-DB55AFEE2EFB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
