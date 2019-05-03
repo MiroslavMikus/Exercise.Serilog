@@ -1,4 +1,5 @@
 ﻿using Serilog;
+using Serilog.Events;
 using Serilog.Formatting.Json;
 using System;
 using System.Collections.Generic;
@@ -14,9 +15,17 @@ namespace Exercise.Serilog
         static void Main()
         {
             CreateLogger();
+
+            var _log = Log.ForContext<Program>();
+
+            _log.Information("Some amazing context log :)");
+
+            Console.ReadKey();
+
             for (int i = 0; i < 500; i++)
             {
                 Console.WriteLine(i);
+
                 SimpleLog();
 
                 LogLevels();
@@ -24,7 +33,6 @@ namespace Exercise.Serilog
                 StructuredLogging();
             }
 
-            Console.ReadKey();
         }
 
         private static void StructuredLogging()
@@ -74,7 +82,8 @@ namespace Exercise.Serilog
         {
             Log.Logger = new LoggerConfiguration()
                             .MinimumLevel.Verbose()
-                            .WriteTo.Console()
+                            .WriteTo.Console(LogEventLevel.Verbose,
+                                outputTemplate: "[{Timestamp:HH:mm:ss} {Level:u3}] {Message} (at {SourceContext:l}){NewLine}{Exception}")
                             .WriteTo.File(new JsonFormatter(), "Log\\Machine.log")
                             .WriteTo.File("Log\\Human.log")
                             .WriteTo.RollingFile(new JsonFormatter(),
